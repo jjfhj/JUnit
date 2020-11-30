@@ -1,17 +1,14 @@
 package tests;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import page.CalcGooglePage;
 
 
@@ -36,8 +33,9 @@ public class googleCalcTests {
     }
 
     @Test
+    @DisplayName("Кейс 1. Проверка операций с целыми числами")
     public void test1() {
-        driver.findElement(By.cssSelector("input.gLFyf.gsfi")).sendKeys("Калькулятор", Keys.ENTER);
+        CalcGooglePage.search("Калькулятор");
         //(
         CalcGooglePage.openBracket.click();
         //1
@@ -65,8 +63,43 @@ public class googleCalcTests {
         //=
         CalcGooglePage.equally.click();
         assertAll(
-                () -> assertEquals("(1 + 2) × 3 - 40 ÷ 5 =",driver.findElement(By.cssSelector("div [jsname=\"VkJw6\"] span")).getText()),
-                () -> assertEquals("1",driver.findElement(By.cssSelector("div [jsname=\"zLiRgc\"] span")).getText())
+                () -> assertEquals("(1 + 2) × 3 - 40 ÷ 5 =", driver.findElement(By.cssSelector("div [jsname=\"VkJw6\"] span")).getText()),
+                () -> assertEquals("1", driver.findElement(By.cssSelector("div [jsname=\"zLiRgc\"] span")).getText())
+        );
+
+
+    }
+
+    @Test
+    @DisplayName("Кейс 2. Проверка деления на ноль")
+    public void test2() {
+        CalcGooglePage.search("Калькулятор");
+        //6
+        CalcGooglePage.six.click();
+        //:
+        CalcGooglePage.division.click();
+        //0
+        CalcGooglePage.zero.click();
+        //=
+        CalcGooglePage.equally.click();
+        assertAll(
+                () -> assertEquals("6 ÷ 0 =", driver.findElement(By.cssSelector("div [jsname=\"VkJw6\"] span")).getText()),
+                () -> assertEquals("Infinity", driver.findElement(By.cssSelector("div [jsname=\"zLiRgc\"] span")).getText())
+        );
+
+    }
+
+    @Test
+    @DisplayName("Кейс 3. Проверка ошибки при отсутствии значения")
+    public void test3() {
+        CalcGooglePage.search("Калькулятор");
+        //sin()
+        CalcGooglePage.sin.click();
+        //=
+        CalcGooglePage.equally.click();
+        assertAll(
+                () -> assertEquals("sin() =", driver.findElement(By.cssSelector("div [jsname=\"VkJw6\"] span")).getText()),
+                () -> assertEquals("Error", driver.findElement(By.cssSelector("div [jsname=\"zLiRgc\"] span")).getText())
         );
 
 

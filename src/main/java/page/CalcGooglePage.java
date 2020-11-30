@@ -1,5 +1,6 @@
 package page;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,6 +9,8 @@ import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class CalcGooglePage {
 
+    @FindBy(css = "input.gLFyf.gsfi")
+    private WebElement searchInput;
 
     @FindBy(css = "div[aria-label=\"открывающая скобка\"]")
     public WebElement openBracket;
@@ -56,12 +59,17 @@ public class CalcGooglePage {
 
 
     public CalcGooglePage(WebDriver driver) {
-        initElements(driver,     this);
+        initElements(driver, this);
     }
+
+    public void search(String text) {
+        searchInput.sendKeys(text, Keys.ENTER);
+    }
+
 }
 
 
-//        driver.findElement(By.cssSelector("div[aria-label=\"открывающая скобка\"]")).click();
+//                driver.findElement(By.cssSelector("div[aria-label=\"открывающая скобка\"]")).click();
 //                driver.findElement(By.cssSelector("div[aria-label=\"синус\"]")).click();
 //                driver.findElement(By.cssSelector("div[aria-label=\"деление\"]")).click();
 //                driver.findElement(By.cssSelector("div[aria-label=\"умножение\"]")).click();
