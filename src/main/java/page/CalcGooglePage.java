@@ -3,14 +3,11 @@ package page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class CalcGooglePage {
 
-    @FindBy(css = "input.gLFyf.gsfi")
-    public WebElement searchInput;
 
     @FindBy(css = "div[aria-label=\"открывающая скобка\"]")
     public WebElement openBracket;
@@ -33,7 +30,10 @@ public class CalcGooglePage {
     @FindBy(css = "div[aria-label=\"равно\"]")
     public WebElement equally;
 
-    @FindBy(css = "div [class=\"PaQdxb A2W7l\"")
+    @FindBy(css = "div [class=\"PaQdxb A2W7l\"] [jsname=\"bkEvMb\"]")
+    public WebElement zero;
+
+    @FindBy(css = "div [class=\"PaQdxb A2W7l\"] [jsname=\"N10B9\"]")
     public WebElement one;
 
     @FindBy(css = "div [class=\"PaQdxb A2W7l\"] [jsname=\"lVjWed\"]")
